@@ -1,0 +1,4 @@
+.vscode
+__pycache__
+DESAFIO_AT_INOA_DJANGO/cotacoes.csv
+DESAFIO_AT_INOA_DJANGO/db.sqlite3

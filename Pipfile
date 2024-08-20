@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+celery = "*"
+apscheduler = "*"
+django-apscheduler = "*"
+beautifulsoup4 = "*"
+pandas = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"

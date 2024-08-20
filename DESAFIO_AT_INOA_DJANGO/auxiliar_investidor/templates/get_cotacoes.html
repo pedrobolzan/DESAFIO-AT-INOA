@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Consultar Cotações{% endblock %}
+
+{% block content %}
+  <h1>Cotações de {{ ativo.nome }}</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Data e Hora</th>
+        <th>Preço</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cotacao in cotacoes %}
+        <tr>
+          <td>{{ cotacao.data_hora }}</td>
+          <td>{{ cotacao.preco }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'home' %}" class="btn btn-secondary">Voltar</a>
+{% endblock %}
