@@ -1,11 +1,11 @@
-import time
+'''import time
 import os
-#import csv
+import csv
 import requests
 #import re
 import zipfile
 
-import pandas as pd
+#import pandas as pd
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
@@ -50,31 +50,33 @@ def format_time(number):
     return f"{hours:02}:{minutes:02}:{seconds:02},{milliseconds:03}"
 
 def processar_csv_e_salvar_bd(caminho_csv):
+    with open(caminho_csv, mode='r', encoding='latin-1') as file:
+        csv_reader = csv.reader(file, delimiter=';')
+        next(csv_reader)  # Pular o cabeçalho
 
-    df = pd.read_csv(caminho_csv, delimiter=';', encoding='latin-1')
-    
-    df['PrecoNegocio'] = df['PrecoNegocio'].replace(',', '.', regex=True).astype(float)
-    df['HoraFechamento'] = df['HoraFechamento'].apply(format_time)
+        for index, row in enumerate(csv_reader):
+            codigo = row[1].strip()
+            preco_negocio = float(row[3].replace(',', '.'))
+            data_referencia = datetime.strptime(row[0], '%Y-%m-%d')
+            hora_fechamento = format_time(int(row[5].strip()))
+            data_hora = datetime.strptime(f'{data_referencia.date()} {hora_fechamento}', '%Y-%m-%d %H:%M:%S,%f')
+            quantidade_negociada = int(row[4])
+            
+            ativo, created = Ativo.objects.get_or_create(codigo=codigo)
 
-    df['DataReferencia'] = pd.to_datetime(df['DataReferencia'])
-    df['datetime'] = df['DataReferencia'].astype(str) + ' ' + df['HoraFechamento']
-    df['datetime'] = pd.to_datetime(df['datetime'], format='%Y-%m-%d %H:%M:%S,%f')
+            # Create a new Cotacao record
+            Cotacao.objects.create(
+                ativo=ativo, 
+                preco_negocio=preco_negocio, 
+                quantidade_negociada=quantidade_negociada, 
+                data_hora=data_hora
+            )
 
-    for index, row in df.iterrows():
-        codigo = row['CodigoInstrumento'] 
-        preco_negocio = row['PrecoNegocio']
-        data_hora = row['datetime']
-        quantidade_negociada = row['QuantidadeNegociada']
-
-        try:
-            ativo = Ativo.objects.get(codigo=codigo)
-            Cotacao.objects.create(ativo=ativo, preco_negocio=preco_negocio, quantidade_negociada=quantidade_negociada, data_hora=data_hora)
-        except Ativo.DoesNotExist:
-            print(f'Ativo {codigo} não encontrado no banco de dados.')
-        except Exception as e:
-            print(f'Erro ao processar a linha {index}: {e}')
+            if created:
+                print(f'Ativo {codigo} foi criado no banco de dados.')
 
     print("Processamento concluído.")
+    return None
 
 def cotacoes_task():
     csv_file = baixar_arquivo_csv()
@@ -97,4 +99,4 @@ def start_scheduler():
         while True:
             time.sleep(2)
     except (KeyboardInterrupt, SystemExit):
-        scheduler.shutdown()
+        scheduler.shutdown()'''

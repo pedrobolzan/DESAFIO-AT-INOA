@@ -1,12 +1,18 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Ativo, TunelParametro, Cotacao
 from .forms import FormAtivo, ParametroTunelForm
+from .scheduler.monitorar_ativos import start_monitoring_scheduler
 
 def home(request):
+    query = request.GET.get('busca_ativo')
+    if query:
+        ativos = Ativo.objects.filter(codigo__icontains=query)
+    else:
+        ativos = Ativo.objects.all()
 
-    ativos_all = Ativo.objects.all()
+    monitorados = Ativo.objects.filter(tunelparametro__isnull=False)
 
-    return render(request, 'home.html', {'ativos': ativos_all})
+    return render(request, 'home.html', {'ativos': ativos, 'monitorados': monitorados})
 
 def create_ativo(request):
 
@@ -22,8 +28,8 @@ def create_ativo(request):
     return render(request, 'create_ativo.html', {'form': form})
 
 def update_ativo(request, ativo_id):
-
-    ativo = Ativo.objects.get(pk=ativo_id)
+    
+    ativo = get_object_or_404(Ativo, pk=ativo_id)
 
     try:
         parametros = TunelParametro.objects.get(ativo=ativo)
@@ -36,6 +42,10 @@ def update_ativo(request, ativo_id):
             parametros = form.save(commit=False)
             parametros.ativo = ativo
             parametros.save()
+            
+            # Schedule the monitoring of the ativo
+            start_monitoring_scheduler(ativo.id, parametros)
+            
             return redirect('home')
     else:
         form = ParametroTunelForm(instance=parametros)

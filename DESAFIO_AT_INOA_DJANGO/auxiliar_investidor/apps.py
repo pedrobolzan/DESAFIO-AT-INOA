@@ -5,5 +5,6 @@ class AuxiliarInvestidorConfig(AppConfig):
     name = 'auxiliar_investidor'
 
     def ready(self):
-            from .scheduler.updater import start_scheduler
-            start_scheduler()
+            from .scheduler.listar_ativos import start_stock_update_scheduler, debug_stock_update
+            start_stock_update_scheduler()
+            #debug_stock_update()
