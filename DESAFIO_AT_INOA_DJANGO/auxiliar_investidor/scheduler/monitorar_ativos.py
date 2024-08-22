@@ -72,5 +72,6 @@ def monitorar_todos_os_ativos():
             print(f"Monitoramento do ativo {ativo.codigo} iniciado com intervalo de {intervalo} minutos.")
         except TunelParametro.DoesNotExist:
             print(f"Parâmetros não encontrados para o ativo {ativo.codigo}. Monitoramento não iniciado.")
-
+    print("--------------------------------------------------------------------------------")
+    print("Monitoramento de todos os ativos iniciado.")
     scheduler.start()
