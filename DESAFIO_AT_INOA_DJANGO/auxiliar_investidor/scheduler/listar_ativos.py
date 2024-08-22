@@ -6,7 +6,7 @@ from django.db import transaction
 from apscheduler.schedulers.background import BackgroundScheduler
 
 def fetch_available_stocks():
-    """Fetch the list of available stocks from BRAPI API."""
+
     url = "https://brapi.dev/api/available"
     
     response = requests.get(url)
@@ -21,7 +21,7 @@ def fetch_available_stocks():
     return stocks
 
 def fetch_stock_name(stock_code):
-    """Fetch the full name of a stock based on its code from BRAPI."""
+
     url = f'https://brapi.dev/api/quote/{stock_code}?token=cfAWDpKFkPa6ZeN6B3Cxyo'
     response = requests.get(url)
     
@@ -39,7 +39,7 @@ def fetch_stock_name(stock_code):
     return None
 
 def insert_stocks_into_db(stocks):
-    """Fetch the full name of each stock and insert or update it in the Ativo model."""
+
     existing_stocks = Ativo.objects.values_list('codigo', flat=True)
     print(existing_stocks)
     print("============================================================================================")
@@ -47,11 +47,9 @@ def insert_stocks_into_db(stocks):
     for stock in stocks:
 
         if stock not in existing_stocks:
-            # Fetch the full name of the stock from BRAPI
             nome = fetch_stock_name(stock)
                 
             if nome:
-                # Use update_or_create to either update an existing record or create a new one
                 Ativo.objects.update_or_create(
                     codigo=stock,
                     nome=nome
@@ -64,16 +62,17 @@ def insert_stocks_into_db(stocks):
             #print(f"Stock code {stock} already exists in the database.")
 
 def update_stock_list():
+    
     print("fetching stock list...")
     stocks = fetch_available_stocks()
     print("inserting stocks into db...")
     insert_stocks_into_db(stocks)
 
 def start_stock_update_scheduler():
-    """Start a scheduler to update stock list periodically."""
+
     scheduler_update_ativos = BackgroundScheduler()
 
-    scheduler_update_ativos.add_job(update_stock_list, 'interval', hours=24)  # Runs once every 24 hours
+    scheduler_update_ativos.add_job(update_stock_list, 'interval', hours=24)
     scheduler_update_ativos.start()
     print("Stock list update scheduler started.")
 

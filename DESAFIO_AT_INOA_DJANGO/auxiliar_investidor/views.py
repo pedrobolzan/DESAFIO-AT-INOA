@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Ativo, TunelParametro, Cotacao
 from .forms import FormAtivo, ParametroTunelForm
-from .scheduler.monitorar_ativos import start_monitoring_scheduler
+from .scheduler.monitorar_ativos import create_monitorar_ativos_scheduler
 
 def home(request):
     query = request.GET.get('busca_ativo')
@@ -39,12 +39,15 @@ def update_ativo(request, ativo_id):
     if request.method == 'POST':
         form = ParametroTunelForm(request.POST, instance=parametros)
         if form.is_valid():
+
+            if parametros:
+                parametros.delete()
+            
             parametros = form.save(commit=False)
             parametros.ativo = ativo
             parametros.save()
             
-            # Schedule the monitoring of the ativo
-            start_monitoring_scheduler(ativo.id, parametros)
+            create_monitorar_ativos_scheduler(ativo.id, parametros)
             
             return redirect('home')
     else:
