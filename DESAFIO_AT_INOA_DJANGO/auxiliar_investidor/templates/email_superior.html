@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerta de Ação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .footer {
+            text-align: center;
+            padding-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Stock Alert</h1>
+        </div>
+        <div class="content">
+            <p>Caro Usuário,</p>
+            <p>Temos o prazer de informar que a ação <strong>{{ codigo_acao }}</strong>, <strong>{{ nome_acao }}</strong> que você está monitorando atingiu seu limite superior de preço de R$<strong>{{ limite_superior }}</strong> com uma cotação atual de R$<strong>{{ preco_atual }}</strong>.</p>
+            <p>Recomendamos que você considere vender a ação neste momento para maximizar seus lucros.</p>
+            <p>Obrigado por usar nosso serviço.</p>
+            <p>Atenciosamente,</p>
+            <p>Equipe de Investimento</p>
+        </div>
+        <div class="footer">
+            <p>Se você tiver alguma dúvida, entre em contato com nossa equipe de suporte.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -15,6 +15,7 @@
       {% for cotacao in cotacoes %}
         <tr>
           <td>{{ cotacao.data_hora }}</td>
+          <td>{{ cotacao.quan }}</td>
           <td>{{ cotacao.preco_negocio }}</td>
         </tr>
       {% endfor %}

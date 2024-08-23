@@ -14,6 +14,7 @@ class TunelParametro(models.Model):
     limite_inferior = models.DecimalField(max_digits=10, decimal_places=3)
     limite_superior = models.DecimalField(max_digits=10, decimal_places=3)
     periodicidade = models.IntegerField(help_text="Periodicidade em minutos")
+    email = models.EmailField(help_text="Informe seu e-mail para receber alertas")
 
     def __str__(self):
 

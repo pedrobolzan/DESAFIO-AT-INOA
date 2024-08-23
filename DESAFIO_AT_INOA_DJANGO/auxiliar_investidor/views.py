@@ -62,3 +62,4 @@ def get_cotacoes(request, ativo_id):
     cotacoes = Cotacao.objects.filter(ativo=ativo).order_by('-data_hora')
 
     return render(request, 'get_cotacoes.html', {'cotacoes': cotacoes, 'ativo': ativo})
+

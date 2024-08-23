@@ -9,4 +9,4 @@ class FormAtivo(forms.ModelForm):
 class ParametroTunelForm(forms.ModelForm):
     class Meta:
         model = TunelParametro
-        fields = ['limite_inferior', 'limite_superior', 'periodicidade']
+        fields = ['limite_inferior', 'limite_superior', 'periodicidade', 'email']
