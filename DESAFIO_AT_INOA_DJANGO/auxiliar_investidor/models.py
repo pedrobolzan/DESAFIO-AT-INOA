@@ -11,8 +11,8 @@ class Ativo(models.Model):
 
 class TunelParametro(models.Model):
     ativo = models.OneToOneField(Ativo, on_delete=models.CASCADE)
-    limite_inferior = models.DecimalField(max_digits=10, decimal_places=3)
-    limite_superior = models.DecimalField(max_digits=10, decimal_places=3)
+    limite_inferior = models.DecimalField(max_digits=10, decimal_places=2)
+    limite_superior = models.DecimalField(max_digits=10, decimal_places=2)
     periodicidade = models.IntegerField(help_text="Periodicidade em minutos")
     email = models.EmailField(help_text="Informe seu e-mail para receber alertas")
 
@@ -22,7 +22,7 @@ class TunelParametro(models.Model):
 
 class Cotacao(models.Model):
     ativo = models.ForeignKey(Ativo, on_delete=models.CASCADE)
-    preco_negocio = models.DecimalField(max_digits=10, decimal_places=3)
+    preco_negocio = models.DecimalField(max_digits=10, decimal_places=2)
     #quantidade_negociada = models.IntegerField( help_text="Quantidade de ativos negociados")
     data_hora = models.DateTimeField(auto_now_add=True)
 
