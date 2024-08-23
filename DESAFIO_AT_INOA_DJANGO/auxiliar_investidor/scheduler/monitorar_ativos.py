@@ -66,15 +66,26 @@ def create_monitorar_ativos_scheduler(ativo_id, parametros):
     
     intervalo = parametros.periodicidade  # Em minutos
 
-    scheduler.add_job(
-        verificar_preco,
-        'interval',
-        minutes=intervalo,
-        args=[ativo_id, parametros],
-        id=f'verificar_preco_{ativo_id}',
-        replace_existing=True,
-    )
-    
+    #schedule_existente = TunelParametro.objects.get(ativo_id=ativo_id)
+
+    job_id = f'verificar_preco_{ativo_id}'
+
+    if scheduler.get_job(job_id):
+        scheduler.reschedule_job(
+                job_id,
+                trigger='interval',
+                minutes=intervalo,
+            )
+    else:
+        scheduler.add_job(
+            verificar_preco,
+            'interval',
+            minutes=intervalo,
+            args=[ativo_id, parametros],
+            id=job_id,
+            replace_existing=True,
+        )
+        
     scheduler.start()
 
     print(f"Monitoramento do ativo {ativo_id} criado com sucesso com intervalo de {intervalo} minutos.")
