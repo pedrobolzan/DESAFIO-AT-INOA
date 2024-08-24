@@ -1,5 +1,5 @@
 import requests
-#import os
+import os
 
 from django.utils import timezone
 from django.core.mail import send_mail
@@ -15,7 +15,9 @@ def verificar_preco(ativo_id, parametros):
 
     ativo = Ativo.objects.get(id=ativo_id)
 
-    url = f'https://brapi.dev/api/quote/{ativo.codigo}?token=cfAWDpKFkPa6ZeN6B3Cxyo'
+    token = os.environ.get('BRAPI_TOKEN')
+
+    url = f'https://brapi.dev/api/quote/{ativo.codigo}?token={token}'
     response = requests.get(url)
 
     if response.status_code == 200:

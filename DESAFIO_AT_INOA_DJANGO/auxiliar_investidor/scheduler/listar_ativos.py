@@ -1,4 +1,5 @@
 import requests
+import os
 
 from ..models import Ativo
 from django.db import transaction
@@ -22,7 +23,9 @@ def fetch_available_stocks():
 
 def fetch_stock_name(stock_code):
 
-    url = f'https://brapi.dev/api/quote/{stock_code}?token=cfAWDpKFkPa6ZeN6B3Cxyo'
+    token = os.environ.get('BRAPI_TOKEN')
+
+    url = f'https://brapi.dev/api/quote/{stock_code}?token={token}'
     response = requests.get(url)
     
     if response.status_code == 200:

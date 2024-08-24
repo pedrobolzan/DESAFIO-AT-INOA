@@ -15,7 +15,7 @@ Este aplicativo Django foi desenvolvido para auxiliar investidores no monitorame
 
 ### *Importante*
 
-O aplicativo utiliza como variáveis de ambiente ALLOWED_HOSTS, SECRET_KEY, DEBUG, DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
+O aplicativo utiliza como variáveis de ambiente ALLOWED_HOSTS, SECRET_KEY, DEBUG, DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD e BRAPI_TOKEN
 
 ## Modelos e Relacionamentos
 
