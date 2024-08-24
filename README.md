@@ -13,6 +13,10 @@
 
 Este aplicativo Django foi desenvolvido para auxiliar investidores no monitoramento de ações da bolsa de valores B3. Ele permite a criação de alertas personalizados com base em limites de preços e executa tarefas agendadas para verificar e registrar as cotações das ações em intervalos definidos pelo usuário.
 
+### *Importante*
+
+O aplicativo utiliza como variáveis de ambiente ALLOWED_HOSTS, SECRET_KEY, DEBUG, DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
+
 ## Modelos e Relacionamentos
 
 ### Modelo de Entidade-Relacionamento (ERD)
@@ -123,7 +127,7 @@ O scheduler garante que as cotações das ações sejam verificadas regularmente
 
 ### Utilização da API BRAPI
 
-A API BRAPI permite obter dados de cotações de ativos financeiros. Abaixo, é descrito um exemplo de utilização da API para obter informações sobre o ativo **FNAM11**.
+A API BRAPI permite obter dados de cotações de ativos financeiros. A API permite em seu nível gratuito 15.000 consultas de preço e nome por mês. Abaixo, é descrito um exemplo de utilização da API para obter informações sobre o ativo **FNAM11**.
 
 #### Exemplo de Requisição
 
