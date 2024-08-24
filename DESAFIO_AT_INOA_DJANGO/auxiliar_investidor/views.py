@@ -63,3 +63,14 @@ def get_cotacoes(request, ativo_id):
 
     return render(request, 'get_cotacoes.html', {'cotacoes': cotacoes, 'ativo': ativo})
 
+def delete_ativo(request, ativo_id):
+    ativo = get_object_or_404(Ativo, pk=ativo_id)
+
+    try:
+        parametros = TunelParametro.objects.get(ativo=ativo)
+    except TunelParametro.DoesNotExist:
+        return redirect('home')
+
+    parametros.delete()
+
+    return redirect('home')

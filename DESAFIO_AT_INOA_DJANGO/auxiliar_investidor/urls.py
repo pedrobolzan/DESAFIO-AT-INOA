@@ -6,4 +6,5 @@ urlpatterns = [
     path('criar/', views.create_ativo, name='create_ativo'),
     path('editar/<int:ativo_id>/', views.update_ativo, name='update_ativo'),
     path('cotacoes/<int:ativo_id>/', views.get_cotacoes, name='get_cotacoes'),
+    path('deletar/<int:ativo_id>/', views.delete_ativo, name='delete_ativo'),
 ]

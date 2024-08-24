@@ -48,7 +48,7 @@ def verificar_preco(ativo_id, parametros):
     if cotacao_atual >= parametros.limite_superior:
         print(f"Atenção: O preço da ação {ativo.codigo} atingiu o limite superior definido de {parametros.limite_superior}!")
         subject = f"Alerta de Ação: {ativo.codigo} atingiu o limite superior de preço"
-        html_message = render_to_string('email_inferior.html', {
+        html_message = render_to_string('email_superior.html', {
             'codigo_acao': ativo.codigo,
             'nome_acao': ativo.nome,
             'preco_atual': cotacao_atual,

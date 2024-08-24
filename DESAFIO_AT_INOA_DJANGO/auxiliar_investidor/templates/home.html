@@ -70,6 +70,7 @@
               <td>
                 <a href="{% url 'update_ativo' ativo.id %}" class="btn btn-primary btn-sm">Editar Monitoramento</a>
                 <a href="{% url 'get_cotacoes' ativo.id %}" class="btn btn-info btn-sm">Consultar Cotações</a>
+                <a href="{% url 'delete_ativo' ativo.id %}" class="btn btn-danger btn-sm">Remover Monitoramento</a>
               </td>
             </tr>
           {% endfor %}
