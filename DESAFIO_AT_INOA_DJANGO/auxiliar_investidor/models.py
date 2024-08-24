@@ -23,7 +23,6 @@ class TunelParametro(models.Model):
 class Cotacao(models.Model):
     ativo = models.ForeignKey(Ativo, on_delete=models.CASCADE)
     preco_negocio = models.DecimalField(max_digits=10, decimal_places=2)
-    #quantidade_negociada = models.IntegerField( help_text="Quantidade de ativos negociados")
     data_hora = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
