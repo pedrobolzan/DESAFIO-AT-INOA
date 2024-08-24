@@ -47,7 +47,9 @@ INSTALLED_APPS = [
 ]
 
 if running_as_wsgi:
+    INSTALLED_APPS.remove('auxiliar_investidor')
     INSTALLED_APPS.append('DESAFIO_AT_INOA_DJANGO.auxiliar_investidor')
+    INSTALLED_APPS.append('auxiliar_investidor')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
