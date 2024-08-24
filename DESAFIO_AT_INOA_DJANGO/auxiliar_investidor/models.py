@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Ativo(models.Model):
     nome = models.CharField(max_length=128)
-    codigo = models.CharField(max_length=6)
+    codigo = models.CharField(max_length=7)
 
     def __str__(self):
 
