@@ -54,15 +54,19 @@ def insert_stocks_into_db(stocks):
                     codigo=stock,
                     nome=nome
                 )
-                print(f"Stock code {stock} has been added to the database with name {nome}.")
+                print(f"Stock code {stock} has been added to the database with name {nome}. -------------------------------------------------------------")
             else:
-                print(f"Stock name for code {stock} could not be found.")
+                Ativo.objects.update_or_create(
+                    codigo=stock,
+                    nome=f"Átivo de código {stock}"
+                )
+                print(f"Stock name for code {stock} could not be found. Default name set as 'Átivo de código {stock}'.")
         else:
             pass
-            #print(f"Stock code {stock} already exists in the database.")
+            print(f"Stock code {stock} already exists in the database.")
 
 def update_stock_list():
-    
+
     print("fetching stock list...")
     stocks = fetch_available_stocks()
     print("inserting stocks into db...")
@@ -75,6 +79,9 @@ def start_stock_update_scheduler():
     scheduler_update_ativos.add_job(update_stock_list, 'interval', hours=24)
     scheduler_update_ativos.start()
     print("Stock list update scheduler started.")
+    
+    #para checar os ativos imediatamente após o servidor ser inicializado:
+    update_stock_list()
 
 def debug_stock_update():
     update_stock_list()
