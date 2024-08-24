@@ -32,6 +32,7 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
+running_as_wsgi = os.getenv('RUNNING_AS_WSGI', 'False') == 'True'
 
 # Application definition
 
@@ -42,8 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'auxiliar_investidor'
+    'DESAFIO_AT_INOA_DJANGO.auxiliar_investidor'
 ]
+
+'''if running_as_wsgi:
+    INSTALLED_APPS.append('DESAFIO_AT_INOA_DJANGO.auxiliar_investidor')'''
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
