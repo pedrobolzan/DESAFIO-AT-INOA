@@ -46,8 +46,8 @@ INSTALLED_APPS = [
     'auxiliar_investidor'
 ]
 
-'''if running_as_wsgi:
-    INSTALLED_APPS.append('DESAFIO_AT_INOA_DJANGO.auxiliar_investidor')'''
+if running_as_wsgi:
+    INSTALLED_APPS.append('DESAFIO_AT_INOA_DJANGO.auxiliar_investidor')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
