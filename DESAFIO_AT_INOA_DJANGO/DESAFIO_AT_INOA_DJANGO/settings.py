@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'DESAFIO_AT_INOA_DJANGO.auxiliar_investidor'
+    'auxiliar_investidor'
 ]
 
 '''if running_as_wsgi:
