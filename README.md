@@ -59,7 +59,7 @@ Quando os preços das ações ultrapassam os limites definidos, o aplicativo env
 ### Funcionamento dos Schedulers
 
 ### 1. **Scheduler de Listar Ativos**: 
-O aplicativo conta com um scheduler responsável por manter a lista de ativos atualizada no banco de dados. Aqui está uma explicação do funcionamento:
+O aplicativo conta com um scheduler global responsável por manter a lista de ativos atualizada no banco de dados de forma que todos os jobs registrados possam ser editados e deletados sem que os existentes sejam afetados. Aqui está uma explicação do funcionamento das funções presentes nos arquivos listar_ativos.py e monitorar_ativos.py:
 
 #### 1. **Função `fetch_available_stocks`**
 
