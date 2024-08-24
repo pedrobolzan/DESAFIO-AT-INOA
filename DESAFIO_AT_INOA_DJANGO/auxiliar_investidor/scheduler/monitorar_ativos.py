@@ -8,6 +8,9 @@ from django.utils.html import strip_tags
 from apscheduler.schedulers.background import BackgroundScheduler
 from ..models import Ativo, Cotacao, TunelParametro
 
+scheduler = BackgroundScheduler()
+scheduler.start()
+
 def verificar_preco(ativo_id, parametros):
 
     ativo = Ativo.objects.get(id=ativo_id)
@@ -62,7 +65,7 @@ def verificar_preco(ativo_id, parametros):
 
 def create_monitorar_ativos_scheduler(ativo_id, parametros):
 
-    scheduler = BackgroundScheduler()
+    #scheduler = BackgroundScheduler()
     
     intervalo = parametros.periodicidade  # Em minutos
 
@@ -70,7 +73,10 @@ def create_monitorar_ativos_scheduler(ativo_id, parametros):
 
     job_id = f'verificar_preco_{ativo_id}'
 
+    print(job_id)
+
     if scheduler.get_job(job_id):
+        print(f"Monitoramento do ativo {ativo_id} já existe. Verificando se é necessário alterar o intervalo.")
         scheduler.reschedule_job(
                 job_id,
                 trigger='interval',
@@ -85,14 +91,13 @@ def create_monitorar_ativos_scheduler(ativo_id, parametros):
             id=job_id,
             replace_existing=True,
         )
+        print(f"Monitoramento do ativo {ativo_id} criado com sucesso com intervalo de {intervalo} minutos."),
         
-    scheduler.start()
-
-    print(f"Monitoramento do ativo {ativo_id} criado com sucesso com intervalo de {intervalo} minutos.")
+    #scheduler.start()
 
 def monitorar_todos_os_ativos():
     
-    scheduler = BackgroundScheduler()
+    #scheduler = BackgroundScheduler()
 
     ativos_monitorados = Ativo.objects.filter(tunelparametro__isnull=False)
     for ativo in ativos_monitorados:
@@ -108,9 +113,13 @@ def monitorar_todos_os_ativos():
                 id=f'verificar_preco_{ativo.id}',
                 replace_existing=True,
             )
-            print(f"Monitoramento do ativo {ativo.codigo} iniciado com intervalo de {intervalo} minutos.")
+            print(f"Monitoramento do ativo {ativo.codigo} iniciado com intervalo de {intervalo} minutos com job id = verificar_preco_{ativo.id}.")
         except TunelParametro.DoesNotExist:
             print(f"Parâmetros não encontrados para o ativo {ativo.codigo}. Monitoramento não iniciado.")
     print("--------------------------------------------------------------------------------")
     print("Monitoramento de todos os ativos iniciado.")
-    scheduler.start()
+    #scheduler.start()
+
+def remove_monitoramento(ativo_id):
+    scheduler.remove_job(f'verificar_preco_{ativo_id}')
+    print(f"Monitoramento do ativo {ativo_id} removido com sucesso.")

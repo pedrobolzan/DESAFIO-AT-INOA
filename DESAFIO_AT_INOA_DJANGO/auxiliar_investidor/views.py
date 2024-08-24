@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Ativo, TunelParametro, Cotacao
 from .forms import FormAtivo, ParametroTunelForm
-from .scheduler.monitorar_ativos import create_monitorar_ativos_scheduler
+from .scheduler.monitorar_ativos import create_monitorar_ativos_scheduler, remove_monitoramento
 
 def home(request):
     query = request.GET.get('busca_ativo')
@@ -72,5 +72,6 @@ def delete_ativo(request, ativo_id):
         return redirect('home')
 
     parametros.delete()
+    remove_monitoramento(ativo_id)
 
     return redirect('home')
